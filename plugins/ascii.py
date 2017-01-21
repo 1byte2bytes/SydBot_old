@@ -31,10 +31,10 @@ import bot_settings
 
 
 def init(plugin):
-    return [plugin, [bot_settings.prefix + "ascii"]]
+    return [plugin, ["ascii"]]
 
-def on_command(text):
-    if(text.startswith(bot_settings.prefix + "ascii ")):
+def on_command(command, text):
+    if(command == "ascii"):
         """Beautify some text (font list at http://artii.herokuapp.com/fonts_list)."""
 
         if text == None:
