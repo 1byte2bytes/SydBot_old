@@ -1,4 +1,4 @@
-#Original code from https://github.com/corpnewt/CorpBot.py is under the following license
+#Original code from https://github.com/corpnewt/CorpBot.py/tree/a3f0f419192dbae17f537a02dc377a41acf90757 is under the following license
 #
 #MIT License
 #
