@@ -46,4 +46,4 @@ async def on_message(message):
             if message.content == command:
                 plugin[0].on_command(message.content)
 
-client.run(open('key.txt', 'r').read())
+client.run(open('key.txt', 'r').read().strip())
