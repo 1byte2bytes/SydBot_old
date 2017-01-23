@@ -44,23 +44,36 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    for plugin in plugins:
-        for command in plugin[1]:
-            if message.content.split(" ")[0] == bot_settings.prefix + command:
-                try:
-                    message_content = message.content.split(" ", 1)
-                    result = plugin[0].on_command(message_content[0][1:], message_content[1])
-                    if (result[0] != ""):
-                        print("Uploading files to Discord is not supported at this moment.")
-                        if (result[1] != ""):
+    if(message.content.split(" ")[0] == bot_settings.prefix + "plugins"):
+        pluginlist = []
+        for plugin in plugins:
+            pluginlist.append(str(plugin[0].__name__).rsplit(".",1)[1])
+        await client.send_message(message.channel, ", ".join(pluginlist))
+    elif(message.content.split(" ")[0] == bot_settings.prefix + "commands"):
+        commandlist = []
+        for plugin in plugins:
+            for command in plugin[1]:
+                commandlist.append(bot_settings.prefix + command)
+        await client.send_message(message.channel, ", ".join(commandlist))
+    else:
+        for plugin in plugins:
+            for command in plugin[1]:
+                if message.content.split(" ")[0] == bot_settings.prefix + command:
+                    try:
+                        message_content = message.content.split(" ", 1)
+                        result = plugin[0].on_command(message_content[0][1:], message_content[1])
+                        if (result[0] != ""):
+                            print("Uploading files to Discord is not supported at this moment.")
+                            if (result[1] != ""):
+                                await client.send_message(message.channel, result[1])
+                        elif (result[1] != ""):
                             await client.send_message(message.channel, result[1])
-                    elif (result[1] != ""):
-                        await client.send_message(message.channel, result[1])
-                    else:
-                        await client.send_message(message.channel, "The command did not return and output.")
-                except Exception as e:
-                    exc_type, exc_obj, exc_tb = sys.exc_info()
-                    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-                    await client.send_message(message.channel, "<@219683089457217536> ```NON-FATAL BOT CRASH ERROR\r\n" + str(e) + " [" + str(fname) + ":" + str(exc_tb.tb_lineno) + "]```")
+                        else:
+                            await client.send_message(message.channel, "The command did not return and output.")
+                    except Exception as e:
+                        exc_type, exc_obj, exc_tb = sys.exc_info()
+                        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+                        await client.send_message(message.channel,
+                                                  "<@219683089457217536> ```NON-FATAL BOT CRASH ERROR\r\n" + str(e) + " [" + str(fname) + ":" + str(exc_tb.tb_lineno) + "]```")
 
 client.run(open('key.txt', 'r').read().strip())
