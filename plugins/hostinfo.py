@@ -59,9 +59,14 @@ def on_command(command, text):
             # botName = DisplayName.name(botMember)
             currentTime = int(time.time())
             #timeString = libraries.readabletime.getReadableTimeBetween(self.startTime, currentTime)
+            pythonMajor = sys.version_info.major
+            pythonMinor = sys.version_info.minor
+            pythonMicro = sys.version_info.micro
+            pythonRelease = sys.version_info.releaselevel
 
             msg = '***Dipper Bot\'s*** **Home:**\n\n'
             msg += '```{}\n'.format(currentOS)
+            msg += 'Python {}.{}.{} {}\n'.format(pythonMajor, pythonMinor, pythonMicro, pythonRelease)
             msg += '{}% of {} ({} thread[s])\n'.format(cpuUsage, processor, cpuThred)
             msg += libraries.progressbar.makeBar(int(round(cpuUsage))) + "\n"
             msg += '{} ({}%) of {}GB RAM used\n'.format(memUsedGB, memPerc, memTotalGB)
