@@ -68,10 +68,10 @@ def on_command(command, text):
             msg = '***Dipper Bot\'s*** **Home:**\n'
             msg += '```{}\n'.format(currentOS)
             msg += 'Python {}.{}.{} {}\n\n'.format(pythonMajor, pythonMinor, pythonMicro, pythonRelease)
-            msg += '   CPU: {}% of {} ({} thread[s])\n'.format(cpuUsage, processor, cpuThred)
-            msg += libraries.progressbar.makeBar(int(round(cpuUsage))) + "\n"
-            msg += '   RAM: {} ({}%) of {}GB used\n'.format(memUsedGB, memPerc, memTotalGB)
-            msg += libraries.progressbar.makeBar(int(round(memPerc))) + "\n"
+            msg += '   CPU: {}% of {} ({} thread[s]) {}\n'.format(cpuUsage, processor, cpuThred, libraries.progressbar.makeBar(int(round(cpuUsage))))
+            #msg += libraries.progressbar.makeBar(int(round(cpuUsage))) + "\n"
+            msg += '   RAM: {} ({}%) of {}GB used   {}\n'.format(memUsedGB, memPerc, memTotalGB, libraries.progressbar.makeBar(int(round(memPerc))))
+            #msg += libraries.progressbar.makeBar(int(round(memPerc))) + "\n"
             msg += '  TIME: {} ({})\n'.format(time.strftime("%H:%M:%S", time.gmtime()), time.tzname[time.daylight])
             msg += 'UPTIME: {}```'.format(timeString)
 
