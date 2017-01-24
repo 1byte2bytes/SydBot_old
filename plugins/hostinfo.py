@@ -33,6 +33,7 @@ import time
 import sys
 import libraries.readabletime
 import libraries.progressbar
+import bot_settings
 
 def init(plugin):
     return [plugin, ["hostinfo"]]
@@ -58,20 +59,20 @@ def on_command(command, text):
             # botMember = DisplayName.memberForID(self.bot.user.id, ctx.message.server)
             # botName = DisplayName.name(botMember)
             currentTime = int(time.time())
-            #timeString = libraries.readabletime.getReadableTimeBetween(self.startTime, currentTime)
+            timeString = libraries.readabletime.getReadableTimeBetween(bot_settings.startTime, currentTime)
             pythonMajor = sys.version_info.major
             pythonMinor = sys.version_info.minor
             pythonMicro = sys.version_info.micro
             pythonRelease = sys.version_info.releaselevel
 
-            msg = '***Dipper Bot\'s*** **Home:**\n\n'
+            msg = '***Dipper Bot\'s*** **Home:**\n'
             msg += '```{}\n'.format(currentOS)
             msg += 'Python {}.{}.{} {}\n'.format(pythonMajor, pythonMinor, pythonMicro, pythonRelease)
             msg += '{}% of {} ({} thread[s])\n'.format(cpuUsage, processor, cpuThred)
             msg += libraries.progressbar.makeBar(int(round(cpuUsage))) + "\n"
             msg += '{} ({}%) of {}GB RAM used\n'.format(memUsedGB, memPerc, memTotalGB)
-            msg += libraries.progressbar.makeBar(int(round(memPerc))) + "\n```"
-            #msg += '*{} uptime*'.format(timeString)
+            msg += libraries.progressbar.makeBar(int(round(memPerc))) + "\n"
+            msg += '{} uptime```'.format(timeString)
 
             return "", msg
         except Exception as e:
