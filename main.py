@@ -25,7 +25,12 @@ plugin_base = PluginBase(package='plugins')
 plugin_source = plugin_base.make_plugin_source(
     searchpath=['./plugins'])
 
+library_base = PluginBase(package='libraries')
+library_source = library_base.make_plugin_source(
+    searchpath=['./libraries'])
+
 plugins = []
+libraries = []
 
 for plugin in plugin_source.list_plugins():
     try:
@@ -38,6 +43,9 @@ for plugin in plugin_source.list_plugins():
     except Exception as e:
         print(e)
         print("Module " + plugin + " failed to load")
+
+for library in library_source.list_plugins():
+    libraries.append(library)
 
 client = discord.Client()
 
@@ -53,9 +61,12 @@ async def on_ready():
 async def on_message(message):
     if(message.content.split(" ")[0] == bot_settings.prefix + "plugins"):
         pluginlist = []
+        librarylist = []
         for plugin in plugins:
             pluginlist.append(str(plugin[0].__name__).rsplit(".",1)[1])
-        await client.send_message(message.channel, ", ".join(pluginlist))
+        for library in libraries:
+            librarylist.append(str(library))
+        await client.send_message(message.channel, "**PLUGINS:**\n```" + ", ".join(pluginlist) + "```\n**LIBRARIES:**\n```" + ", ".join(libraries) + "```")
     elif(message.content.split(" ")[0] == bot_settings.prefix + "commands"):
         commandlist = []
         for plugin in plugins:
