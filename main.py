@@ -84,6 +84,6 @@ async def on_message(message):
                         exc_type, exc_obj, exc_tb = sys.exc_info()
                         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                         await client.send_message(message.channel,
-                                                  "<@219683089457217536> ```NON-FATAL BOT CRASH ERROR\r\n" + str(e) + " [" + str(fname) + ":" + str(exc_tb.tb_lineno) + "]```")
+                                                  "<@219683089457217536> ```NON-FATAL BOT ERROR\r\n" + str(e) + " [" + str(fname) + ":" + str(exc_tb.tb_lineno) + "]```")
 
 client.run(open('key.txt', 'r').read().strip())
