@@ -60,8 +60,11 @@ async def on_message(message):
             for command in plugin[1]:
                 if message.content.split(" ")[0] == bot_settings.prefix + command:
                     try:
-                        message_content = message.content.split(" ", 1)
-                        result = plugin[0].on_command(message_content[0][1:], message_content[1])
+                        if(len(message.content.split(" ")) == 1):
+                            result = plugin[0].on_command(message.content[1:], "")
+                        else:
+                            message_content = message.content.split(" ", 1)
+                            result = plugin[0].on_command(message_content[0][1:], message_content[1])
                         if (result[0] != ""):
                             print("Uploading files to Discord is not supported at this moment.")
                             if (result[1] != ""):
