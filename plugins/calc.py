@@ -149,7 +149,7 @@ def on_command(command, text):
             return "", msg
 
         try:
-            answer=nsp.eval(formula)
+            answer=nsp.eval(formula.replace("*", "x"))
         except:
             msg = 'I couldn\'t parse "{}" :(\n\n'.format(formula)
             msg += 'I understand the following syntax:\n````\n'
@@ -163,6 +163,6 @@ def on_command(command, text):
             msg += "expr    :: term [ addop term ]*```"
             return "", libraries.nullify.clean(msg)
 
-        msg = '{} = {}'.format(formula, answer)
+        msg = '{} = {}'.format(formula.replace("*", "x"), answer)
         # Say message
         return "", msg
