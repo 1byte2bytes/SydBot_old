@@ -33,6 +33,7 @@ from pyparsing import (Literal,CaselessLiteral,Word,Combine,Group,Optional,
                     ZeroOrMore,Forward,nums,alphas,oneOf)
 import math
 import operator
+import libraries.nullify
 
 __author__='Paul McGuire'
 __version__ = '$Revision: 0.0 $'
@@ -151,7 +152,7 @@ def on_command(command, text):
             answer=nsp.eval(formula)
         except:
             msg = 'I couldn\'t parse "{}" :(\n\n'.format(formula)
-            msg += 'I understand the following syntax:\n```\n'
+            msg += 'I understand the following syntax:\n````\n'
             msg += "expop   :: '^'\n"
             msg += "multop  :: 'x' | '/'\n"
             msg += "addop   :: '+' | '-'\n"
@@ -160,7 +161,7 @@ def on_command(command, text):
             msg += "factor  :: atom [ expop factor ]*\n"
             msg += "term    :: factor [ multop factor ]*\n"
             msg += "expr    :: term [ addop term ]*```"
-            return "", msg
+            return "", libraries.nullify.clean(msg)
 
         msg = '{} = {}'.format(formula, answer)
         # Say message
