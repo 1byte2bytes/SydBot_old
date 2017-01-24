@@ -18,6 +18,7 @@ import discord
 import bot_settings
 import sys
 import os
+import time
 import asyncio
 
 plugin_base = PluginBase(package='plugins')
@@ -37,6 +38,7 @@ client = discord.Client()
 
 @client.event
 async def on_ready():
+    bot_settings.startTime = int(time.time())
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
