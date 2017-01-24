@@ -72,6 +72,7 @@ def on_command(command, text):
             msg += libraries.progressbar.makeBar(int(round(cpuUsage))) + "\n"
             msg += '{} ({}%) of {}GB RAM used\n'.format(memUsedGB, memPerc, memTotalGB)
             msg += libraries.progressbar.makeBar(int(round(memPerc))) + "\n"
+            msg += '{} ({})\n'.format(time.strftime("%H:%M:%S", time.gmtime()), time.tzname[time.daylight])
             msg += '{} uptime```'.format(timeString)
 
             return "", msg
