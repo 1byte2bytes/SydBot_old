@@ -28,11 +28,16 @@ plugin_source = plugin_base.make_plugin_source(
 plugins = []
 
 for plugin in plugin_source.list_plugins():
-    loading_plugin = plugin_source.load_plugin(plugin)
-    result = loading_plugin.init(loading_plugin)
-    for command in result[1]:
-        print("Command " + command + " registed!")
-    plugins.append(result)
+    try:
+        loading_plugin = plugin_source.load_plugin(plugin)
+        result = loading_plugin.init(loading_plugin)
+        for command in result[1]:
+            result[0].on_command(command, "BOT_TEST_EVENT")
+            print("Command " + command + " registed!")
+        plugins.append(result)
+    except Exception as e:
+        print(e)
+        print("Module " + plugin + " failed to load")
 
 client = discord.Client()
 
