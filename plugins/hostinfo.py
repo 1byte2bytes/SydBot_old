@@ -31,6 +31,7 @@ import psutil
 import platform
 import time
 import sys
+import glob
 import libraries.readabletime
 import libraries.progressbar
 import bot_settings
@@ -75,7 +76,7 @@ def on_command(command, text):
             msg += '     TIME: {} ({})\n'.format(time.strftime("%H:%M:%S", time.localtime()), time.tzname[time.daylight])
             msg += '   UPTIME: {}\n'.format(timeString)
             msg += 'RAM CACHE: 0 ITEMS (0 DERPI, 0 GOOGLE, 0 YT)\n'
-            msg += 'HDD CACHE: 0 ITEMS (0 DERPI, 0 GOOGLE, 0 YT)```'
+            msg += 'HDD CACHE: {} ITEMS ({} DERPI, 0 GOOGLE, 0 YT)```'.format(len(glob.glob("./data/derpi_raw/*.json")), len(glob.glob("./data/derpi_raw/*.json")))
 
             return "", msg
         except Exception as e:
