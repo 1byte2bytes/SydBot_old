@@ -4,3 +4,4 @@ __pycache__
 **/__pycache__
 key.txt
 .idea
+data/derpi_raw/*.json
