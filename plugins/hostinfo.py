@@ -68,12 +68,14 @@ def on_command(command, text):
             msg = '***Dipper Bot\'s*** **Home:**\n'
             msg += '```{}\n'.format(currentOS)
             msg += 'Python {}.{}.{} {}\n\n'.format(pythonMajor, pythonMinor, pythonMicro, pythonRelease)
-            msg += '   CPU: {}% of {} ({} thread[s]) {}\n'.format(cpuUsage, processor, cpuThred, libraries.progressbar.makeBar(int(round(cpuUsage))))
+            msg += '      CPU: {}% of {} ({} thread[s]) {}\n'.format(cpuUsage, processor, cpuThred, libraries.progressbar.makeBar(int(round(cpuUsage))))
             #msg += libraries.progressbar.makeBar(int(round(cpuUsage))) + "\n"
-            msg += '   RAM: {} ({}%) of {}GB used   {}\n'.format(memUsedGB, memPerc, memTotalGB, libraries.progressbar.makeBar(int(round(memPerc))))
+            msg += '      RAM: {} ({}%) of {}GB used   {}\n'.format(memUsedGB, memPerc, memTotalGB, libraries.progressbar.makeBar(int(round(memPerc))))
             #msg += libraries.progressbar.makeBar(int(round(memPerc))) + "\n"
-            msg += '  TIME: {} ({})\n'.format(time.strftime("%H:%M:%S", time.localtime()), time.tzname[time.daylight])
-            msg += 'UPTIME: {}```'.format(timeString)
+            msg += '     TIME: {} ({})\n'.format(time.strftime("%H:%M:%S", time.localtime()), time.tzname[time.daylight])
+            msg += '   UPTIME: {}\n'.format(timeString)
+            msg += 'RAM CACHE: 0 ITEMS (0 DERPI, 0 GOOGLE, 0 YT)\n'
+            msg += 'HDD CACHE: 0 ITEMS (0 DERPI, 0 GOOGLE, 0 YT)```'
 
             return "", msg
         except Exception as e:
