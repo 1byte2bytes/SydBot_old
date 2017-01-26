@@ -32,6 +32,8 @@ import platform
 import time
 import sys
 import glob
+import json
+
 import libraries.readabletime
 import libraries.progressbar
 import bot_settings
@@ -65,18 +67,32 @@ def on_command(command, text):
             pythonMinor = sys.version_info.minor
             pythonMicro = sys.version_info.micro
             pythonRelease = sys.version_info.releaselevel
+            depriCacheFiles = glob.glob("./data/derpi_raw/*.json")
+            derpiDamageCount = 0
+            derpiTotalCount = 0
+            for filename in depriCacheFiles:
+                with open(filename) as data_file:
+                    data = json.load(data_file)
+                    derpiTotalCount += 1
+                    try:
+                        temp2084 = data["tags"]
+                    except Exception as e:
+                        derpiDamageCount += 1
+            derpiHealthPercent = 100 * float(derpiDamageCount)/float(derpiTotalCount)
+
 
             msg = '***Dipper Bot\'s*** **Home:**\n'
             msg += '```{}\n'.format(currentOS)
             msg += 'Python {}.{}.{} {}\n\n'.format(pythonMajor, pythonMinor, pythonMicro, pythonRelease)
-            msg += '      CPU: {}% of {} ({} thread[s]) {}\n'.format(cpuUsage, processor, cpuThred, libraries.progressbar.makeBar(int(round(cpuUsage))))
+            msg += '         CPU: {}% of {} ({} thread[s]) {}\n'.format(cpuUsage, processor, cpuThred, libraries.progressbar.makeBar(int(round(cpuUsage))))
             #msg += libraries.progressbar.makeBar(int(round(cpuUsage))) + "\n"
-            msg += '      RAM: {} ({}%) of {}GB used   {}\n'.format(memUsedGB, memPerc, memTotalGB, libraries.progressbar.makeBar(int(round(memPerc))))
+            msg += '         RAM: {} ({}%) of {}GB used   {}\n'.format(memUsedGB, memPerc, memTotalGB, libraries.progressbar.makeBar(int(round(memPerc))))
             #msg += libraries.progressbar.makeBar(int(round(memPerc))) + "\n"
-            msg += '     TIME: {} ({})\n'.format(time.strftime("%H:%M:%S", time.localtime()), time.tzname[time.daylight])
-            msg += '   UPTIME: {}\n'.format(timeString)
-            msg += 'RAM CACHE: 0 ITEMS (0 DERPI, 0 GOOGLE, 0 YT)\n'
-            msg += 'HDD CACHE: {} ITEMS ({} DERPI, 0 GOOGLE, 0 YT)```'.format(len(glob.glob("./data/derpi_raw/*.json")), len(glob.glob("./data/derpi_raw/*.json")))
+            msg += '        TIME: {} ({})\n'.format(time.strftime("%H:%M:%S", time.localtime()), time.tzname[time.daylight])
+            msg += '      UPTIME: {}\n'.format(timeString)
+            msg += '   RAM CACHE: 0 ITEMS (0 DERPI, 0 GOOGLE, 0 YT)\n'
+            msg += '   HDD CACHE: {} ITEMS ({} DERPI, 0 GOOGLE, 0 YT)\n'.format(len(depriCacheFiles), len(depriCacheFiles))
+            msg += 'CACHE HEALTH: {}% HEALTHY ({}% DERPI)```'.format(str(int(100-derpiHealthPercent)), str(int(100-derpiHealthPercent)))
 
             return "", msg
         except Exception as e:
