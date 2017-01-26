@@ -78,6 +78,7 @@ async def on_message(message):
             for command in plugin[1]:
                 if message.content.split(" ")[0] == bot_settings.prefix + command:
                     try:
+                        await client.send_typing(message.channel)
                         if(len(message.content.split(" ")) == 1):
                             result = plugin[0].on_command(message.content[1:], "")
                         else:
