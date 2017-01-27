@@ -71,7 +71,12 @@ def on_command(command, text):
             msg = '***Dipper Bot\'s*** **Home:**\n'
             msg += '```{}\n'.format(currentOS)
             msg += 'Python {}.{}.{} {}\n\n'.format(pythonMajor, pythonMinor, pythonMicro, pythonRelease)
-            msg += '         CPU: {}% of {} ({} thread[s]) {}\n'.format(cpuUsage, processor, cpuThred, libraries.progressbar.makeBar(int(round(cpuUsage))))
+            if cpuThred == 1:
+                msg += '         CPU: {}% of {} ({} thread) {}\n'.format(cpuUsage, processor, cpuThred,
+                                                                            libraries.progressbar.makeBar(
+                                                                                int(round(cpuUsage))))
+            else:
+                msg += '         CPU: {}% of {} ({} threads) {}\n'.format(cpuUsage, processor, cpuThred, libraries.progressbar.makeBar(int(round(cpuUsage))))
             #msg += libraries.progressbar.makeBar(int(round(cpuUsage))) + "\n"
             msg += '         RAM: {} ({}%) of {}GB used   {}\n\n'.format(memUsedGB, memPerc, memTotalGB, libraries.progressbar.makeBar(int(round(memPerc))))
             #msg += libraries.progressbar.makeBar(int(round(memPerc))) + "\n"
