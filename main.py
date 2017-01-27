@@ -60,7 +60,9 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    print("[DEBUG  ] Message {} recieved".format(message.content))
     if(message.content.split(" ")[0] == bot_settings.prefix + "plugins"):
+        print("[DEBUG  ] Plugin command ran")
         pluginlist = []
         librarylist = []
         for plugin in plugins:
@@ -69,6 +71,7 @@ async def on_message(message):
             librarylist.append(str(library))
         await client.send_message(message.channel, "**PLUGINS:**\n```" + ", ".join(pluginlist) + "```\n**LIBRARIES:**\n```" + ", ".join(libraries) + "```")
     elif(message.content.split(" ")[0] == bot_settings.prefix + "commands"):
+        print("[DEBUG  ] Commands command ran".format(message.content))
         commandlist = []
         for plugin in plugins:
             for command in plugin[1]:
@@ -78,6 +81,7 @@ async def on_message(message):
         for plugin in plugins:
             for command in plugin[1]:
                 if message.content.split(" ")[0] == bot_settings.prefix + command:
+                    print("[DEBUG  ] Command {} recieved".format(message.content.split(" ")[0]))
                     try:
                         await client.send_typing(message.channel)
                         if(len(message.content.split(" ")) == 1):
@@ -109,7 +113,7 @@ def do_tasks():
             loading_task = tasks_source.load_plugin(task)
             result = loading_task.do_task()
             print("Done task " + task)
-        time.sleep(30)
+        time.sleep(5)
 
 t1 = threading.Thread(target=do_tasks, args=[])
 t1.start()
