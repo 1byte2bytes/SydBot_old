@@ -20,6 +20,7 @@ import sys
 import os
 import time
 import asyncio
+import threading
 
 plugin_base = PluginBase(package='plugins')
 plugin_source = plugin_base.make_plugin_source(
@@ -97,5 +98,20 @@ async def on_message(message):
                         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                         await client.send_message(message.channel,
                                                   "<@219683089457217536> ```NON-FATAL BOT ERROR\r\n" + str(e) + " [" + str(fname) + ":" + str(exc_tb.tb_lineno) + "]```")
+
+def do_tasks():
+    while True:
+        tasks_base = PluginBase(package='tasks')
+        tasks_source = tasks_base.make_plugin_source(
+            searchpath=['./tasks'])
+        for task in tasks_source.list_plugins():
+            print("Doing task " + task)
+            loading_task = tasks_source.load_plugin(task)
+            result = loading_task.do_task()
+            print("Done task " + task)
+        time.sleep(30)
+
+t1 = threading.Thread(target=do_tasks, args=[])
+t1.start()
 
 client.run(open('key.txt', 'r').read().strip())
