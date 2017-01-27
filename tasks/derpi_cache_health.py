@@ -20,6 +20,21 @@ def do_task():
     global derpiTotalCount
     global derpiHealthPercent
     global depriCacheFileCount
+    global roundcount
+    if os.path.isfile("./data/derpi_round.txt") == False:
+        with open("./data/derpi_round.txt", 'w') as f:
+            f.write("0")
+    with open("./data/derpi_round.txt", 'r') as f:
+        roundcount = int(f.read())
+    with open("./data/derpi_round.txt", 'w') as f:
+        roundcount += 1
+        if roundcount < 5:
+            print("[DEBUG  ] Waiting for {} more rounds".format(5-roundcount))
+            f.write(str(roundcount))
+            return
+        else:
+            roundcount = 1
+            f.write(str(roundcount))
     depriCacheFiles = glob.glob("./data/derpi_raw/*.json")
     depriCacheFileCount = len(depriCacheFiles)
     derpiDamageCount = 0
