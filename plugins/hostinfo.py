@@ -72,11 +72,11 @@ def on_command(command, text):
             msg += '```{}\n'.format(currentOS)
             msg += 'Python {}.{}.{} {}\n\n'.format(pythonMajor, pythonMinor, pythonMicro, pythonRelease)
             if cpuThred == 1:
-                msg += '         CPU: {}% of {} ({} thread) {}\n'.format(cpuUsage, processor, cpuThred,
+                msg += '         CPU: {}% of {} ({} thread)    {}\n'.format(cpuUsage, processor, cpuThred,
                                                                          libraries.progressbar.makeBar(
                                                                              int(round(cpuUsage))))
             else:
-                msg += '         CPU: {}% of {} ({} threads) {}\n'.format(cpuUsage, processor, cpuThred,
+                msg += '         CPU: {}% of {} ({} threads)   {}\n'.format(cpuUsage, processor, cpuThred,
                                                                           libraries.progressbar.makeBar(
                                                                               int(round(cpuUsage))))
                 #msg += libraries.progressbar.makeBar(int(round(cpuUsage))) + "\n"
