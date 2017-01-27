@@ -86,7 +86,7 @@ def on_command(command, text):
             msg += '      UPTIME: {}\n\n'.format(timeString)
             msg += '   RAM CACHE: 0 ITEMS (0 DERPI, 0 GOOGLE, 0 YT)\n'
             msg += '   HDD CACHE: {} ITEMS ({} DERPI, 0 GOOGLE, 0 YT)\n'.format(derpiData[3], derpiData[3])
-            msg += 'CACHE HEALTH: {}% HEALTHY ({}% DERPI)```'.format(derpiData[2], derpiData[2])
+            msg += 'CACHE HEALTH: {}% HEALTHY ({}% DERPI)     {}```'.format(derpiData[2], derpiData[2], libraries.progressbar.makeBar(int(derpiData[2])))
 
             return "", msg
         except Exception as e:
